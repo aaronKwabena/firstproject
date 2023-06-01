@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FirstProject - Mes ingreduients!{% endblock %}
+
+{% block body %}
+
+    <div classe="container mt-4">
+
+        <h1>Mes ingredients</h1>
+
+    <div class="count">
+    <h4>Il y a {{ igredient.getTotalItemCount }} igredients </h4>
+    </div>
+
+        <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Numéro</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Date de création</th>
+                    </tr>
+                </thead>
+
+            <tbody>
+            {% for igredient in igredient %}
+                <tr class="table-active">
+                    <th scope="row"> {{ igredient.id }} </th>
+                    <td>{{igredient.name}}</td>
+                    <td>{{igredient.price}}</td>
+                    <td>{{igredient.createdAt|date('d/m/Y')}}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table> 
+        <div classe="navigation">
+        {{knp_pagination_render(igredient)}}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+ 
