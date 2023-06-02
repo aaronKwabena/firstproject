@@ -1,24 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}FirstProject - Mes ingreduients!{% endblock %}
+{% block title %}FirstProject - Mes ingredients!{% endblock %}
 
 {% block body %}
 
     <div classe="container mt-4">
+        {% if not igredient.items is same as([])%}
 
         <h1>Mes ingredients</h1>
 
-    <div class="count">
+        <a href="{{path('app_igredient_new')}}" classe="btn btn-primary mt-4">Ajouter un ingredient</a>
+
+         {% for message in app.flashes ('success') %}
+            <div classe="alert alert-success mt-4">
+                {{message}}
+            </div>
+        {% endfor %}
+
+    <div class="count mt-4">
     <h4>Il y a {{ igredient.getTotalItemCount }} igredients </h4>
     </div>
 
-        <table class="table table-hover">
+        <table class="table table-hover mt-4">
                 <thead>
                     <tr>
                     <th scope="col">Numéro</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prix</th>
                     <th scope="col">Date de création</th>
+                    <th scope="col">Modification</th>
+                    <th scope="col">Suppression</th>
                     </tr>
                 </thead>
 
@@ -29,14 +40,24 @@
                     <td>{{igredient.name}}</td>
                     <td>{{igredient.price}}</td>
                     <td>{{igredient.createdAt|date('d/m/Y')}}</td>
+                    <td>
+                    <a href="{{path('app_igredient_edit', {id: igredient.id})}}" class="btn btn-info">Modifier</a>
+                    </td>
+                    <td>
+                    <a href="{{path('app_igredient_delete', {id: igredient.id})}}" class="btn btn-danger">Supprimer</a>
+                    </td>
                 </tr>
             {% endfor %}
 
             </tbody>
         </table> 
-        <div classe="navigation">
+        <div classe="navigation d-flex justify-content-center">
         {{knp_pagination_render(igredient)}}
         </div>
+
+        {% else %}
+        <h4> Il n'y a pas d'ingrédients </h4>
+        {% endif %}
 
     </div>
 

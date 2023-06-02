@@ -6,9 +6,11 @@ use App\Repository\IgredientRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Generator;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: IgredientRepository::class)]
+#[UniqueEntity('name')]
 class Igredient
 {
     #[ORM\Id]
