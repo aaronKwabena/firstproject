@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\IgredientRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Generator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,8 +14,9 @@ class Igredient
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column (type:'integer')]
+    private ?int $id;
+    
 
     #[ORM\Column(length: 50)]
     #[Assert\Length(

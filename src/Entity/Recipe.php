@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -11,40 +12,54 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity('name')]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type:'integer')]
+    private ?int $id;
 
-    #[ORM\Column(length: 50)]
-    private ?string $name = null;
+    #[ORM\Column(type:'string', length:50)]
+    #[Assert\NotBlank()]
+    #[Assert\length(min:2, max:50)]
+    private string $name;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $time = null;
+    #[ORM\Column(type:'integer',nullable: true)]
+    #[Assert\Positive()]
+    #[Assert\LessThan(1441)]
+    private ?int $time;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $nbPeople = null;
+    #[ORM\Column(type:'integer',nullable: true)]
+    #[Assert\Positive()]
+    #[Assert\LessThan(51)]
+    private ?int $nbPeople;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $difficulty = null;
+    #[ORM\Column(type:'integer',nullable: true)]
+    #[Assert\Positive()]
+    #[Assert\LessThan(61)]
+    private ?int $difficulty;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    #[ORM\Column(type:'text')]
+    #[Assert\NotBlank()]
+    private string $description;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $price = null;
+    #[ORM\Column(type:'float',nullable: true)]
+    #[Assert\Positive()]
+    #[Assert\LessThan(1001)]
+    private ?float $price;
 
-    #[ORM\Column]
-    private ?bool $isFavorite = null;
+    #[ORM\Column (type:'boolean')]
+    private bool $isFavorite;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type:'datetime_immutable')]
+    #[Assert\NotNull()]
+    private \DateTimeImmutable $createdAt;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(type:'datetime_immutable')]
+    #[Assert\NotNull()]
+    private \DateTimeImmutable $updatedAt;
 
     #[ORM\ManyToMany(targetEntity: igredient::class)]
     private Collection $igredient;
@@ -52,6 +67,13 @@ class Recipe
     public function __construct()
     {
         $this->igredient = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable;
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+    #[ORM\PrePersist]
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
