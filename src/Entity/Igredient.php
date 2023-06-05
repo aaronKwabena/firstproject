@@ -84,6 +84,11 @@ class Igredient
         $this->createdAt = new DateTimeImmutable();
 
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
   
 
 }

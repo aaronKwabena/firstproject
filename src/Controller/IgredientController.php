@@ -39,6 +39,7 @@ class IgredientController extends AbstractController
            'igredient' => $igredients
          ]);
     }
+    
     #[Route('/igredient/nouveau',name:'app_igredient_new',methods:['GET','POST'])]
     public function new(Request $request, EntityManagerInterface $manager):Response
     {
@@ -84,14 +85,12 @@ class IgredientController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre ingrédient a été créé avec succès !'
+                'Votre ingrédient a été modifié avec succès !'
             );
 
             return $this->redirectToRoute('app_igredient');
 
         }
-
-
 
         return $this->render('pages/igredient/edit.html.twig',[
             'form'=>$form->createView()

@@ -44,7 +44,12 @@ class IgredientType extends AbstractType
                 'constraints' =>[
                     new Assert\Positive(),
                     new Assert\LessThan(200)
+                ],
+                'constraints' =>[
+                    new Assert\Length(['min'=>2, 'max' =>50]),
+                    new Assert\NotBlank()
                 ]
+
             ])
             ->add('submit', SubmitType::class, [
                 'attr' =>[
