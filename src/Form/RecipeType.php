@@ -25,136 +25,136 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'attr'=> [
-                    'class' =>'form-control',
-                    'minlength' =>2,
-                    'maxlength' =>50
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlength' => 2,
+                    'maxlength' => 50
                 ],
                 'label' => 'Nom',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'constraints' =>[
-                    new Assert\Length(['min'=>2, 'max' =>50]),
+                'constraints' => [
+                    new Assert\Length(['min' => 2, 'max' => 50]),
                     new Assert\NotBlank()
                 ]
-                
+
             ])
             ->add('time', IntegerType::class, [
-                'attr'=> [
-                    'class' =>'form-control',
-                    'min' =>1,
-                    'max' =>1440,
-                     
+                'attr' => [
+                    'class' => 'form-control',
+                    'min' => 1,
+                    'max' => 1440,
+
                 ],
-                'required' =>false,
+                'required' => false,
                 'label' => 'Temps (en minutes)',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'constraints' =>[
+                'constraints' => [
                     new Assert\Positive(),
                     new Assert\LessThan(1441)
                 ]
             ])
             ->add('nbPeople', IntegerType::class, [
-                'attr'=> [
-                    'class' =>'form-control',
-                    'min' =>1,
-                    'max' =>50,
-                    
+                'attr' => [
+                    'class' => 'form-control',
+                    'min' => 1,
+                    'max' => 50,
+
                 ],
-                'required' =>false,  
+                'required' => false,
                 'label' => 'Nombre de personnes',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'constraints' =>[
+                'constraints' => [
                     new Assert\Positive(),
                     new Assert\LessThan(51)
                 ]
             ])
             ->add('difficulty', RangeType::class, [
-                'attr'=> [
-                    'class' =>'form-range',
-                    'min' =>1,
-                    'max' =>5,
-                   
+                'attr' => [
+                    'class' => 'form-range',
+                    'min' => 1,
+                    'max' => 5,
+
                 ],
-                'required' =>false,  
+                'required' => false,
                 'label' => 'Difficulté',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'constraints' =>[
+                'constraints' => [
                     new Assert\Positive(),
                     new Assert\LessThan(51)
                 ]
             ])
-            ->add('description', TextareaType::class,[
-                'attr'=> [
-                    'class' =>'form-control',
-                    'min' =>1,
-                    'max' =>5
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'min' => 1,
+                    'max' => 5
                 ],
-                'required' =>false,  
+                'required' => false,
                 'label' => 'Discription',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'constraints' =>[
+                'constraints' => [
                     new Assert\NotBlank(),
                 ]
             ])
-            ->add('price', MoneyType::class,[
-                'attr'=> [
-                    'class' =>'form-control',
-                    
+            ->add('price', MoneyType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+
                 ],
-                'required' =>false,  
+                'required' => false,
                 'label' => 'Prix',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'constraints' =>[
+                'constraints' => [
                     new Assert\Positive(),
                     new Assert\LessThan(1001)
                 ]
             ])
-            ->add('isFavorite', CheckboxType::class,[
-                'attr'=> [
-                    'class' =>'form-check-input',
-                    'required' =>'',
+            ->add('isFavorite', CheckboxType::class, [
+                'attr' => [
+                    'class' => 'form-check-input m-3 mt-3',
+                    'required' => '',
                 ],
-                'required' =>false,
+                'required' => false,
                 'label' => 'Favoris ?',
                 'label_attr' => [
                     'class' => 'form-check-label'
                 ],
-                'constraints' =>[
-                    new Assert\NotNull(),                   
+                'constraints' => [
+                    new Assert\NotNull(),
                 ]
             ])
-            ->add('igredient', EntityType::class,[
-                'class' =>Igredient::class,
-                
-                'query_builder' => function (IgredientRepository $r){
-                    return $r -> createQueryBuilder('i')
-                        ->orderBy('i.name', 'ASC');                      
+            ->add('igredient', EntityType::class, [
+                'class' => Igredient::class,
+
+                'query_builder' => function (IgredientRepository $r) {
+                    return $r->createQueryBuilder('i')
+                        ->orderBy('i.name', 'ASC');
                 },
                 'label' => 'Les Ingrédients',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
-                'choice_label' =>'name',
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('submit', SubmitType::class,[
-                'attr' =>[
+            ->add('submit', SubmitType::class, [
+                'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                'label' => 'Modifier ma recette'
+                'label' => 'Ajouter ma recette'
             ]);
     }
 

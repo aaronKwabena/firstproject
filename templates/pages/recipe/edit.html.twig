@@ -5,7 +5,7 @@
 
         <h1 classe="mt-4 ">Modification de la recette </h1>
         
- {{ form_start(form) }}
+{{ form_start(form) }}
 
             <div classe="form-group">
                 {{ form_label(form.name) }}
@@ -63,6 +63,7 @@
                 </div>
             </div>
 
-          {{ form_row(form.igredient) }}
-
-        {{ form_end(form) }}
+          {# {{ form_row(form.igredient) }} #}
+    </div>
+{{ form_end(form) }}
+{% endblock %}
