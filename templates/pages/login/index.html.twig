@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{# ...#}
+
+{% block title %}FirstProject - Login!{% endblock %}
+
+{% block body %}
+    <H2 classe="mt-4">Se connecter</H2>
+    {% if error%}
+        <div classe="alert alert-dismissible alert-danger"> 
+            {{ error.messageKey|trans(error.messageData, 'security')}} 
+        </div>
+    {% endif %}
+
+    <form action="{{ path('app_login') }} "method="post">
+        <div> 
+            <div> 
+                <labe for="username" classe="form-label">Email: </label>
+            </div>
+            <div> 
+                <input classe="form-control" type="text" id="username" name="_username" value="{{ last_username}}">
+            </div>
+        </div>
+        <div> 
+            <div> 
+                <label for="password" classe="form-label">Password: </label>
+            </div>
+            <div> 
+                <input classe="form-control" type="password" id="password" name="_password">
+            </div>
+        </div>
+
+        <button type="submit" classe="btn btn-primary mt-4">login</button>
+
+    </form>
+
+
+{% endblock %}
